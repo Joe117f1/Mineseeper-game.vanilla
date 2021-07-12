@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The iconic minesweeper game remastered by Yoav Hirshberg">
     <link rel="stylesheet" href="main.css">
-    <title>Document</title>
+    <title>Minesweeper!</title>
 </head>
 
 <body onload="init()">
@@ -15,7 +16,8 @@
     <div class="game-pannel">
         </section>
         <div class="stop-watch">your Time <br><span id='seconds-counter'>0</span> <br>
-        <span class="best-score">best Score:</span><span class="best-time"></span> </div><br>
+            <span class="best-score">best Score:</span><span class="best-time"></span>
+        </div><br>
         <div class="container">
             <button class="hint1" onclick="getHint(1)">&#128161</button>
             <button class="hint2" onclick="getHint(2)">&#128161</button>
@@ -30,17 +32,9 @@
             <div class="control-panel">
                 <button class="smiley" onclick="restart()">&#128512</button> <br>
                 <div class="lives">&#128151 &#128151 &#128151</div>
-
-
-
             </div>
             <table border="1" cellpadding="5">
-                <!-- <th>
-                    <div id='seconds-counter'> </div>
-                    <div class="smiley">&#128512</div>
-                </th> -->
                 <tbody class="board"></tbody>
-
             </table>
         </div>
 

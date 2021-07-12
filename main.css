@@ -64,21 +64,26 @@ button:hover {
 .hint2,
 .hint3 {
   font-size: 25px;
-  background-color: #000000;
+  background-color: transparent;
   border: none;
   outline: none;
+}
+.hint1:hover,
+.hint2:hover,
+.hint3:hover {
+  background-color: transparent;
 }
 
 .smiley {
   font-size: 30px;
-  background-color: #000000;
+  background-color: transparent;
   border: none;
   outline: none;
 }
 
 .smiley:hover {
   cursor: pointer;
-  background-color: #000000;
+  background-color: transparent;
 }
 
 table,
