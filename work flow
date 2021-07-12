@@ -1,0 +1,22 @@
+board panel- contains:
+game matrix
+timer
+mines counter
+game cells
+
+difiiculty level buttons
+bonus features buttons
+
+game Cell logic:
+-position: i/j
+-isMmine true/false
+-isNunber- number of mines around the cell
+- empty ' its not not a mine and no mines arround it.
+-exploded - it was a mine and the player clicked it.
+
+-unclicked
+-flaged
+
+matrix logic:
+-the matrix composed of game cells.
+-the cells are randomised.

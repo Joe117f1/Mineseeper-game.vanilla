@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+
+<body onload="init()">
+    <h1>Mine Sweeper</h1>
+
+    <div class="game-pannel">
+        </section>
+        <div class="stop-watch">your Time <br><span id='seconds-counter'>0</span> <br>
+        <span class="best-score">best Score:</span><span class="best-time"></span> </div><br>
+        <div class="container">
+            <button class="hint1" onclick="getHint(1)">&#128161</button>
+            <button class="hint2" onclick="getHint(2)">&#128161</button>
+            <button class="hint3" onclick="getHint(3)">&#128161</button> <br>
+            <button onclick="chooseLvl(4)">Begginer</button>
+            <button onclick="chooseLvl(8)">Intermediate</button>
+            <button onclick="chooseLvl(12)">Pro</button>
+            <button class="safe-step" onclick="safeStep()">3 safe Step</button>
+        </div><br>
+
+        <div>
+            <div class="control-panel">
+                <button class="smiley" onclick="restart()">&#128512</button> <br>
+                <div class="lives">&#128151 &#128151 &#128151</div>
+
+
+
+            </div>
+            <table border="1" cellpadding="5">
+                <!-- <th>
+                    <div id='seconds-counter'> </div>
+                    <div class="smiley">&#128512</div>
+                </th> -->
+                <tbody class="board"></tbody>
+
+            </table>
+        </div>
+
+        <script src="main.js"></script>
+        <script src="services.js"></script>
+        <script src="storage.services.js"></script>
+        <script src="utils.js"></script>
+</body>
+
+</html>
