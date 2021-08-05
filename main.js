@@ -199,10 +199,11 @@ const neighborCellsActionsHandler = (cellI, cellJ, board, request) => {
         for (let j = cellJ - 1; j <= cellJ + 1; j++) {
             if (i === cellI && j === cellJ) continue;
             if (j < 0 || j >= board[i].length) continue;
+            const currCell = board[i][j];
 
-            if (board[i][j].isMine) minesCounter++;
-            if (board[i][j].isFlagged) continue;
-            if (board[i][j].isClicked) continue;
+            if (currCell.isMine) minesCounter++;
+            if (currCell.isFlagged) continue;
+            if (currCell.isClicked) continue;
             if (request === REVEAL_NEIGHBORS) {
                 const val = neighborCellsActionsHandler(i, j, gBoard, COUNT_MINES)
                 renderCell(i, j, val);
