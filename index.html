@@ -9,11 +9,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="img/yoav-code-surfer.png">
     <link rel="stylesheet" href="main.css">
     <title>Minesweeper!</title>
+    <script src="main.js" defer></script>
+    <script src="services.js" defer></script>
+    <script src="storage.services.js" defer></script>
+    <script src="utils.js" defer></script>
 </head>
 
 <body onload="init()">
     <h1>Mine Sweeper</h1>
-
     <div class="game-pannel">
         </section>
         <div class="stop-watch">your Time <br><span id='seconds-counter'>0</span> <br>
@@ -28,7 +31,6 @@
             <button onclick="chooseLvl(12)">Pro</button>
             <button class="safe-step" onclick="safeStep()">3 safe Step</button>
         </div><br>
-
         <div>
             <div class="control-panel">
                 <button class="smiley" onclick="restart()">&#128512</button> <br>
@@ -38,11 +40,6 @@
                 <tbody class="board"></tbody>
             </table>
         </div>
-
-        <script src="main.js"></script>
-        <script src="services.js"></script>
-        <script src="storage.services.js"></script>
-        <script src="utils.js"></script>
 </body>
 
 </html>
