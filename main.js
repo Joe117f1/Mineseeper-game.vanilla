@@ -1,17 +1,5 @@
 'use strict';
 
-let gBoard;
-let gGameisOn;
-let gCurrGameLvl;
-let gSeconds = 0;
-let gBestScore = 0;
-let gGameTimer;
-let gActivator = true;
-let gLives;
-let gRecursiveLoop = 0;
-let gHints = [];
-let gSafeSteps = 3;
-
 const BEFORE_GAME_EMOJI = '&#128512';
 const IN_GAME_EMOJI = '&#128517';
 const SKULL_EMOJI = '&#128128';
@@ -27,20 +15,32 @@ const NO_LIVES = '&#128148';
 const COUNT_MINES = 'COUNT-MINES';
 const REVEAL_NEIGHBORS = 'REVEAL-NEIGHBORS';
 
+let gBoard;
+let gGameisOn;
+let gCurrGameLvl;
+let gSeconds = 0;
+let gBestScore = 0;
+let gGameTimer;
+let gActivator = true;
+let gLives;
+let gRecursiveLoop = 0;
+let gHints = [];
+let gSafeSteps = 3;
+
 const getSmiely = (emoji) => {
     const smiley = document.querySelector('.smiley');
     smiley.innerHTML = emoji;
-}
+};
 
 const getLivesElement = () => {
     const livesElement = document.querySelector('.lives');
     return livesElement;
-}
+};
 
 const getCellElement = (i, j) => {
     const cellElement = document.querySelector(`[data-i="${i}"][data-j="${j}"]`);
     return cellElement;
-}
+};
 
 const createCell = () => {
     return {
@@ -48,7 +48,7 @@ const createCell = () => {
         isFlagged: false,
         isClicked: false,
     };
-}
+};
 
 const init = () => {
     gBoard = createBoard(4);
@@ -64,7 +64,7 @@ const init = () => {
     gRecursiveLoop = 0;
     gHints = [];
     resetClues();
-}
+};
 
 const resetClues = () => {
     for (let i = 1; i < 4; i++) {
@@ -72,7 +72,7 @@ const resetClues = () => {
     }
     gSafeSteps = 3;
     renderSafeStepBtn();
-}
+};
 
 const createBoard = (boardSize) => {
     const board = [];
@@ -86,7 +86,7 @@ const createBoard = (boardSize) => {
         }
     }
     return board;
-}
+};
 
 const renderBoard = (board) => {
     let strHtml = '';
@@ -108,7 +108,7 @@ const renderBoard = (board) => {
     clearInterval(gGameTimer);
     const boardElement = document.querySelector('.board');
     boardElement.innerHTML = strHtml;
-}
+};
 
 const renderCell = (i, j, value) => {
     const cell = gBoard[i][j];
@@ -120,7 +120,7 @@ const renderCell = (i, j, value) => {
         removeAndAddClass(cellElement, 'unClicked', 'clicked');
     }
     updateCellHtmlContent(cellElement, value);
-}
+};
 
 const cellClickedHandler = (cellElement, i, j) => {
     let cell;
@@ -134,7 +134,7 @@ const cellClickedHandler = (cellElement, i, j) => {
     getSmiely(IN_GAME_EMOJI);
     exposeCell(cell, i, j);
     checkForWin(gBoard);
-}
+};
 
 const firstClickHandler = (i, j, cellElement) => {
     if (!gActivator || gBoard[i][j].isFlagged) {
@@ -150,7 +150,7 @@ const firstClickHandler = (i, j, cellElement) => {
         }
     }
     return cell;
-}
+};
 
 const startGame = () => {
     if (!gGameisOn) {
@@ -158,7 +158,7 @@ const startGame = () => {
         resetClues();
         timer();
     }
-}
+};
 
 const exposeCell = (cell, i, j) => {
     if (cell.isMine) {
@@ -168,7 +168,7 @@ const exposeCell = (cell, i, j) => {
     } else {
         workOnNeigborCells(i, j);
     }
-}
+};
 
 //here I also change the mine to "flag"
 const updateLivesAndGameStatus = (i, j) => {
@@ -183,14 +183,14 @@ const updateLivesAndGameStatus = (i, j) => {
         gLives--;
     }
     checkForWin(gBoard);
-}
+};
 
 const workOnNeigborCells = (i, j) => {
     const neighborMine = neighborCellsActionsHandler(i, j, gBoard, COUNT_MINES);
     (!neighborMine) ? renderCell(i, j, 0) : renderCell(i, j, neighborMine);
     if (!neighborMine) neighborCellsActionsHandler(i, j, gBoard, REVEAL_NEIGHBORS);
     if (neighborMine) gRecursiveLoop = 0;
-}
+};
 
 const neighborCellsActionsHandler = (cellI, cellJ, board, request) => {
     let minesCounter = 0;
@@ -216,19 +216,19 @@ const neighborCellsActionsHandler = (cellI, cellJ, board, request) => {
     if (request === COUNT_MINES) {
         return minesCounter;
     }
-}
+};
 
 const gameOver = () => {
     endGame(SKULL_EMOJI);
     exposeMines();
-}
+};
 
 const endGame = (emoji) => {
     gGameisOn = false;
     gActivator = false;
     clearInterval(gGameTimer);
     getSmiely(emoji);
-}
+};
 
 const exposeMines = () => {
     for (let i = 0; i < gBoard.length; i++) {
@@ -237,12 +237,12 @@ const exposeMines = () => {
             if (!gBoard[i][j].isMine && gBoard[i][j].isFlagged) renderCell(i, j, FALSE_FLAG);
         }
     }
-}
+};
 
 const gameWon = () => {
     endGame(WINNING_EMOJI);
     checkIfBestScore();
-}
+};
 
 const checkForWin = (board) => {
     let cellsInBoardCounter = 0;
@@ -263,7 +263,7 @@ const checkForWin = (board) => {
     if (flaggedMinesCounter === minesCounter) {
         gameWon()
     }
-}
+};
 
 const flaggedMine = (ev, cellElement, i, j) => {
     ev.preventDefault();
@@ -282,7 +282,7 @@ const flaggedMine = (ev, cellElement, i, j) => {
     }
     renderCell(i, j, cellCover);
     checkForWin(gBoard);
-}
+};
 
 const timer = () => {
     gSeconds = 0;
@@ -292,12 +292,12 @@ const timer = () => {
         seconds.innerText = gSeconds;
     }
     gGameTimer = setInterval(incrementSeconds, 1000);
-}
+};
 
 const restart = () => {
     init();
     chooseLvl(gCurrGameLvl);
-}
+};
 
 const chooseLvl = (num) => {
     init();
@@ -306,7 +306,7 @@ const chooseLvl = (num) => {
     gCurrGameLvl = num;
     renderBoard(gBoard);
     clearInterval(gGameTimer);
-}
+};
 
 const getHint = (num) => {
     if (gHints.includes(num)) return;
@@ -328,12 +328,12 @@ const getHint = (num) => {
             }
         }
     }
-}
+};
 
 const renderHintIcon = (hintNumber) => {
     const hintIcon = document.querySelector(`.hint${hintNumber}`)
     hintIcon.innerHTML = USED_HINT;
-}
+};
 
 const getRandomCell = () => {
     let factor = 4;
@@ -345,18 +345,18 @@ const getRandomCell = () => {
     }
     const randomTargetNum = getRandomIntInclusive(1, factor);
     return randomTargetNum;
-}
+};
 
 const showMine = (i, j) => {
     setTimeout(renderCell, 300, i, j, MINE);
     setTimeout(resetCell, 1300, i, j, gBoard);
-}
+};
 
 const resetCell = (i, j, board) => {
     const cellElement = getCellElement(i, j);
     adjustCellElement(cellElement, 'clicked', 'unClicked');
     board[i][j].isClicked = false;
-}
+};
 
 const safeStep = () => {
     if (!gSafeSteps) return;
@@ -376,7 +376,7 @@ const safeStep = () => {
             }
         }
     }
-}
+};
 
 const markSafeStep = (i, j) => {
     renderSafeStepBtn();
@@ -384,46 +384,46 @@ const markSafeStep = (i, j) => {
     adjustCellElement(cellElement, 'unClicked', 'safeStep');
     setTimeout(() => { cellElement.classList.add('safeStep'); }, 300);
     setTimeout(resetSafeCell, 1300, i, j, gBoard);
-}
+};
 
 const renderSafeStepBtn = () => {
     const safeStepBtn = document.querySelector('.safe-step');
     safeStepBtn.innerText = ('' + gSafeSteps + ' safe steps');
-}
+};
 
 const resetSafeCell = (i, j, board) => {
     const cellElement = getCellElement(i, j);
     adjustCellElement(cellElement, 'safeStep', 'unClicked');
     board[i][j].isClicked = false;
-}
+};
 
 const adjustCellElement = (
     cell, classToRemove, classToAdd, HTMLval = null
 ) => {
     updateCellHtmlContent(cell, HTMLval);
     removeAndAddClass(cell, classToRemove, classToAdd);
-}
+};
 
 const removeAndAddClass = (cell, classToRemove, classToAdd) => {
     cell.classList.remove(classToRemove);
     cell.classList.add(classToAdd);
-}
+};
 
 const updateCellHtmlContent = (cell, HTMLval = null) => {
     cell.innerHTML = !HTMLval ? `<td></td>` : `<td>${HTMLval}</td>`;
-}
+};
 
 const getScoreElement = () => {
     const scoreElement = document.querySelector('.best-time');
     return scoreElement;
-}
+};
 
 const displayBestScore = () => {
     const bestScore = getBestScore();
     const scoreElement = getScoreElement();
     gBestScore = bestScore ? bestScore : 0;
     scoreElement.innerHTML = gBestScore;
-}
+};
 
 const checkIfBestScore = () => {
     const scoreElement = getScoreElement();
@@ -432,6 +432,6 @@ const checkIfBestScore = () => {
         scoreElement.innerHTML = gBestScore;
         saveScore(gBestScore);
     }
-}
+};
 
 
